@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+	<servlet>
+		<servlet-name>App_identity_java</servlet-name>
+		<servlet-class>com.google.demo.appidentity.App_identity_javaServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Public_certs_javaServlet</servlet-name>
+		<servlet-class>com.google.demo.appidentity.Public_certs_javaServlet</servlet-class>
+	</servlet>
+	<servlet>
+    <servlet-name>Resource</servlet-name>
+    <servlet-class>com.google.demo.appidentity.Resource</servlet-class>
+  </servlet>
+  
+	<servlet-mapping>
+		<servlet-name>App_identity_java</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Public_certs_javaServlet</servlet-name>
+		<url-pattern>/certs</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+    <servlet-name>Resource</servlet-name>
+    <url-pattern>/resource</url-pattern>
+  </servlet-mapping>
+</web-app>

@@ -1,0 +1,11 @@
+application: app-identity-python
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /
+  script: app_identity_test.py
+
+- url: /certs
+  script: app_identity_test.py

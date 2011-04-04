@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/home/jcai/app_identity/java/appengine-java-sdk/lib/user/appengine-api.jar"/>
+	<classpathentry kind="lib" path="/home/jcai/src/gaiamint/google3/third_party/java/jsontoken/v20110321/jsontoken.jar"/>
+	<classpathentry kind="lib" path="/home/jcai/app_identity_test/app_identity_java/war/WEB-INF/lib/gson-1.4.jar"/>
+	<classpathentry kind="lib" path="/home/jcai/app_identity_test/app_identity_java/war/WEB-INF/lib/commons-codec-1.4.jar"/>
+	<classpathentry kind="lib" path="/home/jcai/app_identity_test/app_identity_java/war/WEB-INF/lib/google-collections-1.0.jar"/>
+	<classpathentry kind="output" path="war/WEB-INF/classes"/>
+</classpath>
