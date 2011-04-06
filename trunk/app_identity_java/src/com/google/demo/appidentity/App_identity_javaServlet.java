@@ -54,8 +54,6 @@ public class App_identity_javaServlet extends HttpServlet {
         + "\">"
         + "Resource page at http://app-identity-java.appspot.com/resource" 
         + "</a>");
-    resp.getWriter().println(
-        "<div>" + "The resource page was been last accessed by: <b>" + Resource.getAccessInfo() + "</b></div></p>");
     
     resp.getWriter().println(
         "<p> <a href=\"" 

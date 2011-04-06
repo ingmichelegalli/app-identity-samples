@@ -35,7 +35,7 @@ public class Resource extends HttpServlet {
     if (verified) {
       resp.getWriter().println("Access Succeed, http://app-identity-java.appspot.com/resource confirmed I am <b>" + certUrl + "</b>");
     } else {
-      resp.getWriter().println("Authentication fails");
+      resp.getWriter().println("403 Authentication fails");
       
       resp.getWriter().println(
           "<p> <a href=\"" 
@@ -50,6 +50,9 @@ public class Resource extends HttpServlet {
           + "\">"
           + "Access this page from http://app-identity-python.appspot.com/access"
           + "</a></p>");
+      
+      resp.getWriter().println(
+          "<div>" + "The resource page was been last accessed by: <b>" + getAccessInfo() + "</b></div></p>");
       
       resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
     }
