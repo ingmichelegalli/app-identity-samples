@@ -47,24 +47,29 @@ public class App_identity_javaServlet extends HttpServlet {
     resp.getWriter().println("<html><head>");
     resp.getWriter().println("<title>App Identity API Demo</title>");
     resp.getWriter().println("</head><body>");
-
-    resp.getWriter().println("<div id=createbox><form action=/ method=post>"
-        + "<b>Grant access to(paste public key url of your app):</b><input type=text name=public_cert_url size=100 />" + "<div>"
-        + "<input type=submit name=grant value=\"Grant\">" + "</div>");
-
-    String publicCertUrl = req.getParameter("public_cert_url");
-    if (publicCertUrl != null) {
-      try {
-        URL url = new URL(publicCertUrl);
-        storePublicCertUrl(url.toString());
-      } catch (MalformedURLException e) {
-        resp.getWriter().println(
-            "<div>" + "Please input a valid URL" + "</div>");
-      }
-    }
-
+        
     resp.getWriter().println(
-        "<div>" + "The access is currently granted to: <b>" + getPublicCertUrl() + "</b></div>");
+        "<p> <a href=\"" 
+        + "/resource" 
+        + "\">"
+        + "Resource page at http://app-identity-java.appspot.com/resource" 
+        + "</a>");
+    resp.getWriter().println(
+        "<div>" + "The resource page was been last accessed by: <b>" + Resource.getAccessInfo() + "</b></div></p>");
+    
+    resp.getWriter().println(
+        "<p> <a href=\"" 
+        + "/certs" 
+        + "\">"
+        + "Certificate page at http://app-identity-java.appspot.com/certs"
+        + "</a></p>");
+    
+    resp.getWriter().println(
+        "<p> <a href=\"" 
+        + "/access" 
+        + "\">"
+        + "Access protected resource page at http://app-identity-java.appspot.com/access" 
+        + "</a></p>");
 
     resp.getWriter().println("</body>");
     resp.getWriter().println("</html>");
@@ -75,30 +80,7 @@ public class App_identity_javaServlet extends HttpServlet {
     doGet(req, resp);
   }
 
-  static public String getPublicCertUrl() {
-    Key certKey = KeyFactory.createKey("PublicCert", "PublicCert");
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    try {
-      Entity entity = datastore.get(certKey);
-      if (entity != null) {
-        return (String) entity.getProperty("url");
-      } else {
-        return "";
-      }
-    } catch (EntityNotFoundException e) {
-      return "";
-    }
-  }
-
-  static public void storePublicCertUrl(String certUrl) {
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-
-    Entity entity = new Entity("PublicCert", "PublicCert");
-    entity.setProperty("url", certUrl);
-    datastore.put(entity);
-  }
-
-  public String createJsonTokenForScope() throws SignatureException {
+  static public String createJsonToken() throws SignatureException {
     AppEngineSigner signer = new AppEngineSigner(APP_SERVICE_ACCOUNT_NAME, "");
     SignedJsonAssertionToken jwt = new SignedJsonAssertionToken(signer);
     jwt.setNonce("don't care");

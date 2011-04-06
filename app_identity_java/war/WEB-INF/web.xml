@@ -16,6 +16,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
     <servlet-name>Resource</servlet-name>
     <servlet-class>com.google.demo.appidentity.Resource</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>Access</servlet-name>
+    <servlet-class>com.google.demo.appidentity.Access</servlet-class>
+  </servlet>
   
 	<servlet-mapping>
 		<servlet-name>App_identity_java</servlet-name>
@@ -28,5 +32,9 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet-mapping>
     <servlet-name>Resource</servlet-name>
     <url-pattern>/resource</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Access</servlet-name>
+    <url-pattern>/access</url-pattern>
   </servlet-mapping>
 </web-app>
