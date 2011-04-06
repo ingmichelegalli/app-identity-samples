@@ -19,6 +19,7 @@ public class Public_certs_javaServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) {
+    System.err.println("accessed");
     AppIdentityService service = AppIdentityServiceFactory.getAppIdentityService();
     Collection<PublicCertificate> certs = service.getPublicCertificatesForApp();
     resp.setContentType("application/json");
