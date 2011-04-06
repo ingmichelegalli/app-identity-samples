@@ -15,6 +15,7 @@ from django.utils import simplejson
 
 from google.appengine.api import urlfetch
 import app_identity
+import urllib
 
 GOOGLE_TOKEN_ENDPOINT = "https://accounts.google.com/accounts/o8/oauth2/token"
 AUDIENCE = GOOGLE_TOKEN_ENDPOINT
@@ -84,14 +85,17 @@ class MainPage(webapp.RequestHandler):
     self.response.out.write("<b>Generate JWT:</b> " + signedjsontoken + "\n")
     self.response.out.write("<p><b>Access resource at: </b>" + RESOURCE_URL + "</p>")
 
-    url = RESOURCE_URL + "?jwt=" + signedjsontoken
+    url = RESOURCE_URL + "?" + urllib.urlencode(
+        [("jwt", signedjsontoken),
+         ("certurl", "http://app-identity-python.appspot.com/certs")])
+    self.response.out.write("<p><b>Send http request to: </b>" + url + " </p>")
     result = urlfetch.fetch(url)
     if result.status_code == 200:
-      self.response.out.write(result.content);
+      self.response.out.write("<b>Result: </b>" + result.content)
     elif result.status_code == 403:
-      self.response.out.write("<p><b>Access denied, go to http://app-identity-java.appspot.com/ to grant access, public certificates of your app can be found at http://http://app-identity-python.appspot.com/certs</b> </p>");
+      self.response.out.write("<p><b>Access denied, go to http://app-identity-java.appspot.com/ to grant access, public certificates of your app can be found at http://http://app-identity-python.appspot.com/certs</b> </p>")
     else:
-      self.response.out.write("<p><b>Access denied, go to http://app-identity-java.appspot.com/ to grant access, public certificates of your app can be found at http://http://app-identity-python.appspot.com/certs</b> </p>");
+      self.response.out.write("<p><b>Access denied, go to http://app-identity-java.appspot.com/ to grant access, public certificates of your app can be found at http://http://app-identity-python.appspot.com/certs</b> </p>")
 
     self.response.out.write(r'</body></html>')
 
