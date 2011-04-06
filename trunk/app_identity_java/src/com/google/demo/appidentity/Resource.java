@@ -46,9 +46,9 @@ public class Resource extends HttpServlet {
       
       resp.getWriter().println(
           "<p> <a href=\"" 
-          + "http://app-identity-python.appspot.com/access"
+          + "http://app-identity-python.appspot.com"
           + "\">"
-          + "Access this page from http://app-identity-python.appspot.com/access"
+          + "Access this page from http://app-identity-python.appspot.com"
           + "</a></p>");
       
       resp.getWriter().println(
@@ -58,6 +58,7 @@ public class Resource extends HttpServlet {
     }
     
     resp.getWriter().println("</body>");
+    
     resp.getWriter().println("</html>");
   }
 
@@ -77,6 +78,7 @@ public class Resource extends HttpServlet {
     try {
       parser.verifyAndDeserialize(jwt);
     } catch (SignatureException e) {
+      System.err.println(e.getMessage());
       return false;
     }
     storeAccessInfo(publicCertUrl);

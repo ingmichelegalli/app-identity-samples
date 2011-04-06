@@ -72,7 +72,7 @@ public class Access extends HttpServlet {
           resp.getWriter().println("<p>" + "<b>Result: </b>" + content.toString() + "</p>");
         } else if (connection.getResponseCode() == HttpURLConnection.HTTP_FORBIDDEN) {
           resp.getWriter().println(
-              "<p>" + "<b>Access denied </b>" + Resource.getAccessInfo() + "</p>");
+              "<p>" + "<b>Result: Access denied </b>" + Resource.getAccessInfo() + "</p>");
         } else {
           resp.getWriter().println("<b><p>" + "Unknown error </b>" + "</p>");
         }
