@@ -57,6 +57,8 @@ public class Access extends HttpServlet {
         url = new URL(urlString);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
+        connection.setConnectTimeout(10 * 1000);
+        connection.setReadTimeout(10 * 1000);
         if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
           InputStreamReader in = new InputStreamReader((InputStream) connection.getContent());
           BufferedReader buff = new BufferedReader(in);
