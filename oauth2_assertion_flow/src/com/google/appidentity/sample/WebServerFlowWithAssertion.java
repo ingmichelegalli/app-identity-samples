@@ -10,6 +10,7 @@ import com.google.appengine.api.urlfetch.HTTPRequest;
 import com.google.appengine.api.urlfetch.HTTPResponse;
 import com.google.appengine.api.urlfetch.URLFetchService;
 import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
+import com.google.gson.JsonParser;
 
 import net.oauth.jsontoken.crypto.AbstractSigner;
 import net.oauth.jsontoken.crypto.SignatureAlgorithm;
@@ -28,11 +29,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class WebServerFlowWithAssertion extends HttpServlet {
 
-  public static final String clinetId = "483427438184.apps.googleusercontent.com";
+  public static final String clinetId = "72176245428-22khvcfdqej38hgt8lmf7obrr8vta6ou.apps.googleusercontent.com";
 
-  public static final String clinetSecret = "TColZvGWM-Uv8vMb8L05C7Og";
+  public static final String clinetSecret = "iO64j3yQP5K6oAfD3KEWKAvp";
 
-  public static final String callback = "http://java-robot-demo.appspot.com/oauth2callback";
+  public static final String callback = "http://assertion-flow-demo.appspot.com/oauth2callback";
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -45,9 +46,10 @@ public class WebServerFlowWithAssertion extends HttpServlet {
       resp.sendRedirect(redirectedUrl);
     } else {
       String payload;
+      String assertion = getAssertion();
       payload = 
       //"client_id=" + clinetId + "&client_secret=" + clinetSecret
-      "client_assertion=" + getAssertion()
+      "client_assertion=" + assertion
       + "&redirect_uri=" + callback
       + "&grant_type=authorization_code" + "&code=" + code;
       URLFetchService service = URLFetchServiceFactory.getURLFetchService();
@@ -58,6 +60,21 @@ public class WebServerFlowWithAssertion extends HttpServlet {
       request.setHeader(header);
       request.setPayload(payload.getBytes());
       HTTPResponse response = service.fetch(request);
+      resp.getWriter().print(new String(response.getContent()));
+      // get refresh token
+      JsonParser parser = new JsonParser();
+      String token = parser
+          .parse(new String(response.getContent()))
+          .getAsJsonObject()
+          .get("refresh_token")
+          .getAsString();
+      payload = 
+        //"client_id=" + clinetId + "&client_secret=" + clinetSecret
+        "client_assertion=" + assertion
+        + "&grant_type=refresh_token"
+        + "&refresh_token=" + token;
+      request.setPayload(payload.getBytes());
+      response = service.fetch(request);
       resp.getWriter().print(new String(response.getContent()));
     }
   }
