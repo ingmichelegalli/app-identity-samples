@@ -33,18 +33,13 @@ SCOPE = "https://docs.google.com/feeds/"
 APP_SERVICE_ACCOUNT_NAME = 'app-identity-python@appspot.com'
 
 # valid for 15 mins
-NOW = time.time()
-NOT_BEFORE = str(NOW)
-NOT_AFTER =  str(NOW + 60 * 15)
-
 RESOURCE_URL = "http://app-identity-java.appspot.com/resource"
 
 class MainPage(webapp.RequestHandler):
   def buildjwt(self):
-    #rpc = app_identity.create_rpc()
-    #app_identity.make_get_app_service_account_name_call(rpc)
-    #rpc.wait()
-    #app_service_account_name = rpc.get_result()
+    now = time.time()
+    now_before = str(now)
+    now_after =  str(now + 60 * 15)
     jsonpayload = ("{\"iss\":\""
                    + APP_SERVICE_ACCOUNT_NAME
                    + "\",\"nonce\":\"nonce\",\"aud\":\""
@@ -52,9 +47,9 @@ class MainPage(webapp.RequestHandler):
                    + "\",\"scope\":\""
                    + SCOPE
                    +"\",\"iat\":"
-                   + NOT_BEFORE
+                   + now_before
                    + ",\"exp\":"
-                   + NOT_AFTER
+                   + now_after
                    + "}"
                    )
     header = ("{\"alg\":\""
@@ -89,14 +84,7 @@ class MainPage(webapp.RequestHandler):
         [("jwt", signedjsontoken),
          ("certurl", "http://app-identity-python.appspot.com/certs")])
     self.response.out.write("<p><b>Send http request to: </b>" + url + " </p>")
-    result = urlfetch.fetch(url)
-    if result.status_code == 200:
-      self.response.out.write("<b>Result: </b>" + result.content)
-    elif result.status_code == 403:
-      self.response.out.write("<p><b>Access denied, go to http://app-identity-java.appspot.com/ to grant access, public certificates of your app can be found at http://http://app-identity-python.appspot.com/certs</b> </p>")
-    else:
-      self.response.out.write("<p><b>Access denied, go to http://app-identity-java.appspot.com/ to grant access, public certificates of your app can be found at http://http://app-identity-python.appspot.com/certs</b> </p>")
-
+    self.redirect(url)
     self.response.out.write(r'</body></html>')
 
 class CertsPage(webapp.RequestHandler):
