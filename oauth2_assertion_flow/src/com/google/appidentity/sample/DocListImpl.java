@@ -207,7 +207,6 @@ public class DocListImpl {
     AppEngineSigner signer = new AppEngineSigner(this.serviceAccountName, "");
     SignedJsonAssertionToken jwt = new SignedJsonAssertionToken(signer);
     jwt.setAudience(GOOGLE_TOKEN_ENDPOINT);
-    jwt.setNonce("12345456");
     jwt.setScope(scope);
     return jwt.serializeAndSign();
   }
