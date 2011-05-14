@@ -84,7 +84,6 @@ public class WebServerFlowWithAssertion extends HttpServlet {
         new AppEngineSigner(ThirdPartyServiceAccountDocList.EXTERNAL_ACCOUNT_NAME, "");
     SignedJsonAssertionToken jwt = new SignedJsonAssertionToken(signer);
     jwt.setAudience(DocListImpl.GOOGLE_TOKEN_ENDPOINT);
-    jwt.setNonce("123456");
     // no scope
     try {
       String assertion = jwt.serializeAndSign();
