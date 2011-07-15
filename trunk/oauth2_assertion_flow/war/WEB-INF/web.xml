@@ -20,6 +20,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>webserverflow</servlet-name>
 		<servlet-class>com.google.appidentity.sample.WebServerFlowWithAssertion</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>storage</servlet-name>
+		<servlet-class>com.google.appidentity.sample.GoogleStorageApiDemo</servlet-class>
+	</servlet>
+
 
 	<servlet-mapping>
 		<servlet-name>doclist-for-google-owned-service-account</servlet-name>
@@ -41,5 +46,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>webserverflow</servlet-name>
 		<url-pattern>/oauth2callback</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>storage</servlet-name>
+		<url-pattern>/storage</url-pattern>
+	</servlet-mapping>
+
 
 </web-app>
