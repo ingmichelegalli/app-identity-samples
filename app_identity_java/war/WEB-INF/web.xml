@@ -5,36 +5,51 @@ xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet>
-		<servlet-name>App_identity_java</servlet-name>
-		<servlet-class>com.google.demo.appidentity.App_identity_javaServlet</servlet-class>
+		<servlet-name>doclist-for-google-owned-service-account</servlet-name>
+		<servlet-class>com.google.appidentity.sample.GoogleOwnedServiceAccountDocList</servlet-class>
+	</servlet>
+        <servlet>
+		<servlet-name>doclist-for-external-service-account</servlet-name>
+		<servlet-class>com.google.appidentity.sample.ThirdPartyServiceAccountDocList</servlet-class>
+	</servlet>
+        <servlet>
+		<servlet-name>x509certs</servlet-name>
+		<servlet-class>com.google.appidentity.sample.X509Certs</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>Public_certs_javaServlet</servlet-name>
-		<servlet-class>com.google.demo.appidentity.Public_certs_javaServlet</servlet-class>
+		<servlet-name>webserverflow</servlet-name>
+		<servlet-class>com.google.appidentity.sample.WebServerFlowWithAssertion</servlet-class>
 	</servlet>
 	<servlet>
-    <servlet-name>Resource</servlet-name>
-    <servlet-class>com.google.demo.appidentity.Resource</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>Access</servlet-name>
-    <servlet-class>com.google.demo.appidentity.Access</servlet-class>
-  </servlet>
-  
+		<servlet-name>storage</servlet-name>
+		<servlet-class>com.google.appidentity.sample.GoogleStorageApiDemo</servlet-class>
+	</servlet>
+
+
 	<servlet-mapping>
-		<servlet-name>App_identity_java</servlet-name>
-		<url-pattern>/</url-pattern>
+		<servlet-name>doclist-for-google-owned-service-account</servlet-name>
+		<url-pattern>/doclist-google</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>Public_certs_javaServlet</servlet-name>
-		<url-pattern>/certs</url-pattern>
+		<servlet-name>doclist-for-external-service-account</servlet-name>
+		<url-pattern>/doclist-3rd</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-    <servlet-name>Resource</servlet-name>
-    <url-pattern>/resource</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>Access</servlet-name>
-    <url-pattern>/access</url-pattern>
-  </servlet-mapping>
+		<servlet-name>x509certs</servlet-name>
+		<url-pattern>/publickeys</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>webserverflow</servlet-name>
+		<url-pattern>/3lo-service-account</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>webserverflow</servlet-name>
+		<url-pattern>/oauth2callback</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>storage</servlet-name>
+		<url-pattern>/storage</url-pattern>
+	</servlet-mapping>
+
+
 </web-app>
